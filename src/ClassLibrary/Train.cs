@@ -17,6 +17,38 @@ namespace ClassLibrary
         /// Obtiene un valor que indica si las maquinas del tren han sido encendidas o no.
         /// </summary>
         /// <value><c>true</c> si las máquinas fueron encendidas, <c>false</c> en caso contrario.</value>
+        private static int count = 0;
+        private string identificador;
+
+        public Train(string identificador)
+        {
+            Count++;
+            Identificador = identificador;
+            Console.WriteLine($"Se está construyendo el tren {Identificador}.");
+        }
+
+        public static int Count
+        {
+            get
+            {
+                return Train.count;
+            }
+            set
+            {
+                Train.count = value;
+            }
+        }
+        public string Identificador
+        {
+            get
+            {
+                return this.identificador;
+            }
+            set
+            {
+                this.identificador = value;
+            }
+        }
         public bool IsEngineStarted { get; private set; }
 
         /// <summary>
@@ -29,12 +61,12 @@ namespace ClassLibrary
         {
             if (this.IsEngineStarted)
             {
-                Console.Write("The engines are already running");
+                Console.WriteLine("The engines are already running");
                 return false;
             }
 
             this.IsEngineStarted = true;
-            Console.Write("Engines on");
+            Console.WriteLine("Engines on");
             return true;
         }
 
@@ -49,12 +81,18 @@ namespace ClassLibrary
             if (this.IsEngineStarted)
             {
                 this.IsEngineStarted = false;
-                Console.Write("Engines off");
+                Console.WriteLine("Engines off");
                 return true;
             }
 
-            Console.Write("The engines are already stopped");
+            Console.WriteLine("The engines are already stopped");
             return this.IsEngineStarted;
+        }
+
+        ~Train()
+        {
+            Count--;
+            Console.WriteLine($"Se está destruyendo el tren {Identificador}.");
         }
     }
 }
